@@ -1,0 +1,43 @@
+/*navbar style*/
+.navbar-custom {
+    background-color:#123D6A;
+   
+}
+
+#collapsibleNavbar a:hover{
+     background-color:#AB3B61;
+     color:white;
+     cursor:pointer;
+}
+#font-adjust{
+	font-family:garamond;
+    font-weight:bold;
+    color:white;
+    cursor:pointer;
+
+}
+/* navbar end */
+/* form styles */
+.color-box{
+    background-color:#EDE2DC;
+    margin-top:15vh;
+    width:70%;
+    border:2px solid #123D6A;
+}
+.heading{
+    color:#BB4E72;
+    font-weight:bold;
+    font-size:4.5vmin;
+    font-family:vivaldi;
+    
+}
+.sub-heading{
+    color:#123D6A;
+    font-size:3.4vmin;
+    font-family:garamond;
+    font-weight:bold;
+}
+button:disabled {
+    cursor: not-allowed;
+   
+  }

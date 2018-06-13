@@ -1,0 +1,36 @@
+<div class="container">
+  <div *ngIf="success==1">
+    <div class="row mt-5">
+      <div class="col-12">
+        <img src="https://www.happyschools.com/wp-content/uploads/2007/11/universities-verify-bank-statement-balance.jpg" style="width:102vmin;height:52vmin"
+          class="img-fluid d-block mx-auto">
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <h2 class="text-success">Email Verified!</h2>
+        <h5 class="text-danger">Thanks for signing up in EdList.Please
+          <a [routerLink]="['/login']">Login</a>
+        </h5>
+      </div>
+    </div>
+  </div> <!--success end-->
+  <!---failure start-->
+  <div *ngIf="failure==1">
+      <div class="row mt-5">
+          <div class="col-12">
+            <img src="http://appslova.com/wp-content/uploads/2016/03/Android-error.png"
+              class="img-fluid d-block mx-auto">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-12 text-center">
+            <h2 class="text-success">Email Not Verified!</h2>
+            <h5 class="text-danger">Oops!Some Error Occured!.Please again
+              <a [routerLink]="['/sign-up']">SignUp</a>
+            </h5>
+          </div>
+        </div>
+
+  </div><!-- failure end -->
+</div>

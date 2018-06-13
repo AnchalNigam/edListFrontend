@@ -1,0 +1,68 @@
+<!-- navbar start -->
+
+<nav class="navbar navbar-expand-md navbar-custom navbar-light fixed-top">
+    
+    <div class="container-fluid">
+    
+      <a id="font-adjust" [routerLink]="['/']">EdList
+      </a>
+  
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon bg-light"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-light">Hi! {{userName}}</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link text-light" [routerLink]="['/EdLists']"><i class="fa fa-home fa-lg" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" [routerLink]="['/friends']"><i class="fa fa-address-book fa-lg"></i> Friends</a>
+          </li>
+        
+        </ul>
+      </div>
+     
+      
+    </div>
+  </nav><br/><br/>
+  <!-- navbar end -->
+
+  <div class="container color-box">
+      <div class="row mt-3">
+        <div class="col-12 text-center">
+          <h1 class="heading">Create To-Do-List</h1>
+        </div>
+    
+      </div>
+      <div class="row mt-3 p-3">
+        <div class="col-12">
+            <form #create="ngForm" (ngSubmit)="createList();create.reset()">
+                <span class="sub-heading">To-Do-List Name</span>
+                <label for="inputName" class="sr-only">List Name</label>
+    
+                <input type="email" #list="ngModel" pattern="^[A-Z][A-za-z ]+$" minlength="2"  name="list" id="inputName" class="form-control" [(ngModel)]="listName" placeholder="To-Do-List Name"
+                    required autofocus>
+    
+                <br>
+                <div [hidden]="list.pristine || list.valid" class="alert alert-danger">
+                    <div *ngIf="list.errors?.pattern">
+                     ** List name should only start with Capital and contain only letters !
+                      <div *ngIf="list.errors?.minlength">
+                       ** List Name should contain minimum 2 letters!
+                      </div>
+                    </div>
+                    <div *ngIf="list.errors?.required">
+                      ** List Name is required!
+                    </div>
+          
+                  </div>
+    
+                
+                <button class="btn btn-lg btn-primary btn-block" type="submit"  [disabled]="!create.form.valid" >Create</button>
+            </form>
+        </div>
+      </div>
+    </div>  

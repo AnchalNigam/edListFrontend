@@ -1,0 +1,107 @@
+ <!-- navbar start -->
+
+ <nav class="navbar navbar-expand-md navbar-custom navbar-light fixed-top">
+    
+  <div class="container-fluid">
+  
+    <a id="font-adjust" [routerLink]="['/']">EdList
+    </a>
+
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon bg-light"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link text-light">Hi! {{userName}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" [routerLink]="['/EdLists']"><i class="fa fa-home fa-lg" aria-hidden="true"></i> Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" [routerLink]="['/friends']"><i class="fa fa-address-book fa-lg"></i> Friends</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" (click)="logout()"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
+        </li>
+
+      </ul>
+    </div>
+   
+    
+  </div>
+</nav><br/><br/>
+<!-- navbar end -->
+
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-lg-3 col-md-6 color-box-1">
+      <h2 class="sub-heading m-3"><i class="fa fa-users" aria-hidden="true"></i> Sent Friend Requests</h2>
+        <ul style="margin-left:-25px" >
+          <span *ngIf="getSendReqList.length!=0;else noReq">
+            <li class="cursorPointer" *ngFor="let list of getSendReqList">
+              
+                  <user-details [firstName]="list.reqRecName"   [lastName]="''"  [designPart]="'friends'" 
+                  [userStatus]="'sendReq'" 
+                  [ReqStatus]="list.status"></user-details>
+            
+            </li>
+          </span>
+          <ng-template #noReq>
+              <h3 class="sub-heading text-danger">No Requests</h3>
+          </ng-template>
+         
+        </ul>
+    </div>
+    <div class="col-lg-6 d-none d-lg-block mt-4">
+      <div id="demo" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active"></li>
+          <li data-target="#demo" data-slide-to="1"></li>
+         
+        </ul>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../../assets/friend1.jpg" alt="To-do-list-image"  height="500">
+            <div class="carousel-caption">
+            
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="../../assets/friend2.jpg" alt="To-do-list-image"  height="500">
+            <div class="carousel-caption">
+              
+
+            </div>
+          </div>
+         
+        </div>
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 color-box-1">
+      <h2 class="sub-heading m-3"><i class="fa fa-users" aria-hidden="true"></i> Recieved Requests</h2>
+        <ul style="margin-left:-25px" >
+            <span *ngIf="getRecReqList.length!=0;else noReq">
+                <li class="cursorPointer" *ngFor="let list of getRecReqList">
+                  
+                      <user-details (friendRequestRec)="recFriendRequest($event)" [firstName]="list.reqSendName"   [lastName]="''"  [designPart]="'friends'" 
+                      [userStatus]="'RecReq'" [ReqStatus]="list.status" [requestData]="list"></user-details>
+                
+                </li>
+            </span>
+            <ng-template #noReq>
+              <h3 class="sub-heading text-danger">No Requests</h3>
+            </ng-template>
+            
+         
+        </ul>
+    </div>
+  </div>
+</div>

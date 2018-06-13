@@ -1,0 +1,46 @@
+<div id="box">
+<div class="crop" [style.color]="'white'">
+    {{firstChar}}
+</div>
+
+<div class="about">
+    <div class="name">{{firstName}} {{lastName}}
+      <span *ngIf="designPart=='lists'">
+          <br/>
+        <em>- {{creator}}</em>
+      </span>
+      <span *ngIf="designPart=='friends'">
+        <span *ngIf="userStatus=='Online'">
+            <i class="online"></i>
+        </span>
+        <span *ngIf="userStatus=='sendReq'">
+            <br/> 
+            <span class="bg-danger btn-set rounded btn-size" id="cursorText">
+               {{ReqStatus}}
+            </span>
+        </span>
+        <span *ngIf="userStatus=='RecReq'">
+                <br/> 
+            <span (click)="recFriendRequest()">
+                <span class="btn btn-info btn-size">
+                   {{ReqStatus}}
+                </span>
+            </span>
+        </span>
+         
+      </span>
+      <span *ngIf="designPart=='users'">
+          <span (click)="sendFriendRequest()">
+              <button class="btn btn-danger btn-size">
+                <i class="fa fa-user-plus"></i>
+              </button>
+          </span>
+      </span>
+    </div>
+
+
+</div>
+<span *ngIf="userStatus=='other'">
+   <br/>
+</span>
+</div>

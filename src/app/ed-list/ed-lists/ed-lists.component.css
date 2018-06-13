@@ -1,0 +1,338 @@
+/*navbar style*/
+.navbar-custom {
+    background-color:#123D6A;
+   
+}
+.navbar-toggler-icon{
+    cursor:pointer;
+}
+.navbar-nav a:hover{
+  background-color:#AB3B61;
+  color:white;
+  cursor:pointer;
+}
+/* #collapsibleNavbar a:hover{
+     background-color:#AB3B61;
+     color:white;
+     cursor:pointer;
+} */
+#font-adjust{
+	font-family:garamond;
+    font-weight:bold;
+    color:white;
+    cursor:pointer;
+   
+
+}
+/* navbar end */
+/* main body design */
+.color-box-1{
+    background-color:#EDE2DC;
+    margin-top:1.8vmax;
+    min-height:50px;
+    box-shadow: 10px 10px 5px #123D6A;
+    border:2px solid #123D6A;
+}
+
+.sub-heading{
+    color:#123D6A;
+    font-size:26px;
+    font-family:garamond;
+    font-weight:bold;
+}
+.cursorPointer{
+    cursor:pointer;
+    list-style:none;
+ 
+}
+/* right side bar design */
+.box-img{
+    opacity:0.5;
+   
+    
+}
+.text-style{
+    font-size:4vmin;
+    position:absolute;
+    left:35%;
+    top:70%;
+    
+    
+    color:#557A95;
+  
+  }
+
+/* center box style */
+.color-box-2{
+   
+    margin-top:1.8vmax;
+    min-height:50px;
+    
+    border:2px dashed #AB3B61;
+}
+
+textarea {
+    width: 100%;
+    border: none;
+    padding-left:14px;
+    padding-top:20px;
+    border-radius: 5px;
+    background-color:#EDE2DC;
+  }
+
+  /* item addition area */
+  .item-history {
+    padding: 2em 2em 1.42em;
+    overflow-y: scroll;
+    height: 80vh;
+  }
+  @media only screen and (max-width:575px) {
+   .item-history {
+      height:50vh;
+    }
+  }
+  @media only screen and (min-width:576px) and (max-width:768px) {
+    .item-history{
+      height:50vh;
+    }
+  }
+  @media only screen and (min-width:769px) and (max-width:992px) {
+    .item-history {
+      height:65vh;
+    }
+  }
+  @media only screen and (min-width:993px) and (max-width:1200  px) {
+    .item-history{
+      height:50vh;
+    }
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .floatLeft {
+    float: left;
+  }
+  .item-history .message-data {
+    margin-bottom: 1em;
+  }
+  .item-history .message-subdata {
+    margin-bottom: 1em;
+  }
+  .item-history .message-data-time {
+    color: #a8aab1;
+    padding-left: 0.4em;
+  }
+  .item-history .message-data-name {
+     font-family:garamond;
+     font-weight:italic;
+     font-size:2.7vmin;
+  }
+  .item-history .message {
+    color: white;
+    padding: 0.5em 1.42em;
+    line-height: 1.9em;
+    font-size: 1.1em;
+    border-radius: 7px;
+    margin-bottom: 2em;
+    width: 99%;
+    position: relative;
+  }
+  
+  .item-history  .message:after {
+    bottom: 100%;
+    left: 7%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color:#AB3B61;
+    border-width: 0.8em;
+    margin-left: -0.8em;
+  }
+  .item-history .sub-message {
+    color: white;
+    padding: 0.5em 1.42em;
+    line-height: 1.9em;
+    font-size: 1.1em;
+    border-radius: 7px;
+    margin-bottom: 2em;
+    width: 99%;
+    position: relative;
+  }
+  
+  .item-history  .sub-message:after {
+    bottom: 100%;
+    left: 7%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+   
+    border-width: 0.8em;
+    margin-left: -0.8em;
+  }
+  
+
+  .item-history  .my-message {
+    background:#AB3B61;
+  }
+  .item-history  .my-message-sub {
+    background:#BBB2B5;
+  }
+  
+  .item-history  .other-message {
+    background: #123D6A;
+  }
+  .item-history  .other-message-sub {
+    background: #EDC8B8;
+  }
+  
+  
+  .item-history  .other-message:after {
+    border-bottom-color: #123D6A;
+    left: 90%;
+  }
+ 
+  .online,
+  .offline,
+  .me,
+  .warning {
+    margin-right: 3px;
+    font-size: 0.8em;
+  }
+  
+  .online {
+    color: #86BB71;
+  }
+  .me {
+    color: #94C2ED;
+  }
+
+  /* design for smaller screen */
+ .myList-collapse{
+     width:50%;
+     background-color:#EDE2DC;
+ }
+ .set-text{
+  float:right;
+}
+
+ @media only screen and (max-width:766px) {
+    .sub-heading{
+        color:#123D6A;
+        font-size:16px;
+        font-family:garamond;
+        font-weight:bold;
+    }
+    .box-img{
+        width:80%;
+        height:110px;
+        
+    }
+    .item-history .message {
+        color: white;
+        padding: 0.5em 1em;
+        line-height: 1.5em;
+        font-size: 1em;
+        border-radius: 7px;
+        margin-bottom: 2em;
+        width: 99%;
+        position: relative;
+      }
+      
+      .item-history  .message:after {
+        bottom: 100%;
+        left: 7%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-bottom-color: #AB3B61;
+        border-width: 0.8em;
+        margin-left: -0.8em;
+      }
+      .item-history  .other-message:after {
+        border-bottom-color: #123D6A;
+      
+      }
+     
+     
+     }
+@media only screen and (min-width:300px) and (max-width:465px){
+    .item-history .message-data {
+        margin-bottom: 2.3em;
+      }
+}
+@media only screen and (min-width:767px) and (max-width:988px){
+    .item-history .message-data {
+        margin-bottom: 2em;
+
+      }
+      .item-history .message-data-name {
+       margin-top:-2px;
+        
+      }
+      .set-text{
+        float:none;
+        display:block;
+    
+      }
+}
+
+@media only screen and (max-width:365px){
+  .item-history .message-data {
+    margin-bottom: 2.5em;
+   
+  }
+  .set-text{
+    float:none;
+    display:block;
+
+  }
+}
+@media only screen and (min-width:366px) and (max-width:565px){
+   
+    .item-history .message-data-name {
+        font-family:garamond;
+        font-weight:italic;
+        font-size:1.3em;
+     }
+}
+
+
+
+ .xs-box{
+     position:absolute;
+     z-index:-1;
+     left: 0px;
+    top: 0px;
+ }
+
+ .text-style-xs{
+    font-size:4vmin;
+    position:absolute;
+    left:15%;
+    top:30%;
+    
+    
+    color:#557A95;
+  
+  }
+  .activeList {
+    background: white;
+  }
+  .done-item{
+    opacity:0.4;
+    cursor: not-allowed;
+  }
+  .set-subitem{
+    margin-left:2.7vmin;
+    margin-right:2.7vmin;
+  }

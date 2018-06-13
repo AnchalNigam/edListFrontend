@@ -1,0 +1,68 @@
+<!-- navbar start -->
+<nav class="navbar navbar-expand-md navbar-custom navbar-light fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" id="font-adjust" [routerLink]="['/']">EdList
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon bg-light"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link text-light" (click)="goToSignUp()">SignUp</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- navbar end -->
+
+<div class="container color-box">
+  <div class="row mt-3">
+    <div class="col-12 text-center">
+      <h1 class="heading">SignIn to Explore Your Journey on EdList</h1>
+    </div>
+
+  </div>
+  <div class="row mt-3 p-3">
+    <div class="col-12">
+        <form #signIn="ngForm" (ngSubmit)="logInFunction();signIn.reset()">
+            <span class="sub-heading">Email</span>
+            <label for="inputEmail" class="sr-only">Email address</label>
+
+            <input type="email" #emailId="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  name="email" id="inputEmail" class="form-control" [(ngModel)]="email" placeholder="Email address"
+                required autofocus>
+
+            <br>
+            <div [hidden]="emailId.valid || emailId.pristine" class="alert alert-danger">
+                <div *ngIf="emailId.errors?.pattern">
+                    Email is invalid!
+                    
+                  </div>
+                  <div *ngIf="emailId.errors?.required">
+                      Email is required!
+                  </div>
+            </div>
+
+            <span class="sub-heading">Password</span>
+            <label for="inputPassword" class="sr-only">Password</label>
+
+            <input type="password" #pass="ngModel" name="password" id="inputPassword" class="form-control" [(ngModel)]="password" placeholder="Password"
+                required>
+
+            <br>
+            <div [hidden]="pass.valid || pass.pristine" class="alert alert-danger">
+                Password is required!
+            </div>
+            
+            <p class="text-danger" style="cursor:pointer" (click)="forgotPassword(emailId.value)"><u>Forgot Password?</u></p>
+            <div *ngIf="emailNeed==0">
+              <p class="text-info">Please provide Email!</p>
+            </div>
+            
+            <button class="btn btn-lg btn-primary btn-block" type="submit"  [disabled]="!signIn.form.valid" >Sign in</button>
+        </form>
+    </div>
+  </div>
+</div>

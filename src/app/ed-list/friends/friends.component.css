@@ -1,0 +1,48 @@
+/*navbar style*/
+.navbar-custom {
+    background-color:#123D6A;
+   
+}
+.navbar-toggler-icon{
+    cursor:pointer;
+}
+.navbar-nav a:hover{
+  background-color:#AB3B61;
+  color:white;
+  cursor:pointer;
+}
+/* #collapsibleNavbar a:hover{
+     background-color:#AB3B61;
+     color:white;
+     cursor:pointer;
+} */
+#font-adjust{
+	font-family:garamond;
+    font-weight:bold;
+    color:white;
+    cursor:pointer;
+   
+
+}
+/* navbar end */
+
+/* main body design */
+.color-box-1{
+    background-color:#EDE2DC;
+    margin-top:1.8vmax;
+    min-height:50px;
+    box-shadow: 10px 10px 5px #123D6A;
+    border:2px solid #123D6A;
+}
+
+.sub-heading{
+    color:#123D6A;
+    font-size:4vmin;
+    font-family:garamond;
+    font-weight:bold;
+}
+.cursorPointer{
+    cursor:pointer;
+    list-style:none;
+ 
+}

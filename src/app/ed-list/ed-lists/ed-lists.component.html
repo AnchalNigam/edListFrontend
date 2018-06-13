@@ -1,0 +1,413 @@
+<div class="d-none d-md-block">
+  <!-- navbar start -->
+
+  <nav class="navbar navbar-expand-md navbar-custom navbar-light fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" id="font-adjust" [routerLink]="['/']">EdList
+      </a>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link text-light">Hi! {{receiverName}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" [routerLink]="['/EdLists']">
+            <i class="fa fa-home fa-lg" aria-hidden="true"></i> Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" [routerLink]="['/friends']">
+            <i class="fa fa-address-book fa-lg"></i> Friends</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" (click)="logout()">
+            <i class="fa fa-sign-out fa-lg"></i> Logout</a>
+        </li>
+
+      </ul>
+
+    </div>
+  </nav>
+  <br/>
+  <br/>
+  <!-- navbar end -->
+
+  <!-- Main body design -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3 col-md-4 color-box-1">
+        <h2 class="sub-heading m-3">
+          <i class="fa fa-list" aria-hidden="true"></i> TodoLists</h2>
+        <ul style="margin-left:-25px">
+          <span *ngIf="allToDoList.length>0;else noList">
+            <li class="cursorPointer" *ngFor="let list of allToDoList" [ngClass]="{'activeList': list.active== true}" (click)="listSelected(list)">
+
+              <user-details [firstName]="list.listName" [lastName]="''" [designPart]="'lists'" [creator]="list.creator"></user-details>
+
+            </li>
+          </span>
+          <ng-template #noList>
+            <h3 class="text-danger">No List</h3>
+          </ng-template>
+        </ul>
+
+        <h2 class="sub-heading m-3">
+          <i class="fa fa-users" aria-hidden="true"></i> All Users</h2>
+        <ul style="margin-left:-25px">
+          <span *ngIf="finalAllUsersList.length!=0;else noUser">
+            <li class="cursorPointer" *ngFor="let user of finalAllUsersList">
+              <span *ngIf="user.userId!=userInfo.userId">
+                <user-details (friendRequestSend)="sendFriendRequest($event)" [firstName]="user.firstName" [lastName]="user.lastName" [designPart]="'users'"
+                  [sendRequestData]="user"></user-details>
+              </span>
+            </li>
+          </span>
+          <ng-template #noUser>
+            <h3 class="text-danger">No Users</h3>
+          </ng-template>
+        </ul>
+
+
+
+      </div>
+
+      <div class="col-lg-6 col-md-4 color-box-2"  *ngIf="selectedListId;else mainPage">
+
+        <textarea placeholder="WHAT NEEDS TO BE DONE ?" (keydown)="sendItemUsingKeypress($event)" [(ngModel)]="itemText"></textarea>
+        <span (click)="undoList(selectedListId)"><i class="fa fa-undo fa-lg cursorPointer"></i></span>
+        <div #scrollMe [scrollTop]="scrollToChatTop" class="item-history">
+          <ul class="list-unstyled">
+            <span *ngFor="let item of itemList">
+              <li>
+
+                <div class="message-data" [ngClass]="{'align-right': item.adderId == userInfo.userId}">
+                  <span class="message-data-time">{{item.modifiedOn | date: 'medium' }}</span> &nbsp; &nbsp;
+                  <span class="message-data-name floatLeft" *ngIf="item.adderId != userInfo.userId">
+                    <i class="fa fa-circle online"></i> {{ item.adder}}</span>
+                  <span class="message-data-name" *ngIf="item.adderId == userInfo.userId">{{ item.adder }}</span>
+                  <i class="fa fa-circle me" *ngIf="item.adderId == userInfo.userId"></i>
+
+                </div>
+                <div class="message clearfix" [ngClass]="{'other-message': item.adderId == userInfo.userId, 
+                  'my-message': item.adderId != userInfo.userId,'done-item':item.status==1}">
+                  {{item?.itemName}}
+                  <span class="set-text">
+                    <i [ngClass]="{'done-item':item.status==1,'cursorPointer':item.status==0}" class="fa fa-thumbs-o-up fa-lg" title="Completed"
+                      (click)="updateItem(item)"></i>
+                    <i [ngClass]="{'done-item':item.status==1,'cursorPointer':item.status==0}" class="fa fa-edit fa-lg" title="Edit" (click)="editItem(item)"></i>
+                    <i [ngClass]="{'done-item':item.status==1,'cursorPointer':item.status==0}" class="fa fa-trash-o fa-lg" title="Delete" (click)="deleteItem(item)"></i>
+                    <i [ngClass]="{'done-item':item.status==1,'cursorPointer':item.status==0}" class="fa fa-plus fa-lg" title="Add subitem" (click)="addSubItem(item.itemId)"></i>
+                  </span>
+                </div>
+              </li>
+              <span style="float:left;width:100%" *ngIf="subItemAddition==true && item.itemId==itemId">
+                <textarea placeholder="Add SubItem ?" (keydown)="sendItemUsingKeypress($event)" [(ngModel)]="subItemText"></textarea>
+              </span>
+              <span *ngIf="checkSubitem(item)">
+              <li *ngFor="let subItem of item.subItems">
+                <div class="message-subdata" [ngClass]="{'align-right': subItem.adderId == userInfo.userId}">
+                  <span class="message-data-time">{{subItem.modifiedOn | date: 'medium' }}</span> &nbsp; &nbsp;
+                  <span class="message-data-name floatLeft" *ngIf="subItem.adderId != userInfo.userId">
+                    <i class="fa fa-circle online"></i> {{ subItem.adder}}</span>
+                  <span class="message-data-name" *ngIf="subItem.adderId == userInfo.userId">{{ subItem.adder }}</span>
+                  <i class="fa fa-circle me" *ngIf="subItem.adderId == userInfo.userId"></i>
+
+
+                </div>
+                <span class="d-block set-subitem">
+                  <div class="sub-message  clearfix" [ngClass]="{'other-message-sub': subItem.adderId == userInfo.userId, 
+              'my-message-sub': subItem.adderId != userInfo.userId,'done-item':subItem.status==1}">
+                    {{subItem.subItemName}}
+                    <span class="set-text">
+                      <i [ngClass]="{'done-item':subItem.status==1,'cursorPointer':subItem.status==0}" class="fa fa-thumbs-o-up fa-lg" title="Completed"
+                        (click)="updateSubItem(subItem,item.itemId)"></i>&nbsp;
+                      <i [ngClass]="{'done-item':subItem.status==1,'cursorPointer':subItem.status==0}" 
+                      class="fa fa-edit fa-lg" title="Edit" (click)="editSubItem(subItem,item.itemId)"></i>&nbsp;
+                      <i [ngClass]="{'done-item':subItem.status==1,'cursorPointer':subItem.status==0}" class="fa fa-trash-o fa-lg" title="Delete" 
+                      (click)="deleteSubItem(subItem,item.itemId)"></i>
+
+                    </span>
+                  </div>
+                </span>
+              </li>
+              </span>
+            </span>
+            <li class="text-center" *ngIf="selectedListId">
+
+              <span class="cursorPointer" (click)="loadEarlierPageOfItem()">Load Previous Items</span>
+
+              <br>
+
+              <span *ngIf="loadingPreviousItem == true">Loading...</span>
+
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <ng-template #mainPage>
+        <div class="col-lg-6 col-md-4 col-12">
+          <div id="demo" class="carousel slide" data-ride="carousel">
+            <ul class="carousel-indicators">
+              <li data-target="#demo" data-slide-to="0" class="active"></li>
+              <li data-target="#demo" data-slide-to="1"></li>
+
+            </ul>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="../../assets/list1.jpg" alt="To-do-list-image" width="1100" height="500">
+                <div class="carousel-caption">
+                  <h3>Create To-Do-List</h3>
+
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="../../assets/list2.jpg" alt="To-do-list-image" width="1100" height="500">
+                <div class="carousel-caption">
+                  <h3>Manage To-Do-List with your friends</h3>
+
+                </div>
+              </div>
+
+            </div>
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          </div>
+
+
+        </div>
+      </ng-template>
+
+
+      <div class="col-lg-3 col-md-4 color-box-1">
+
+        <div class="row">
+          <div class="col-md-12 mt-3">
+            <a [routerLink]="['/EdList-manage','create']">
+              <img src="../../../assets/create.jpg" class="rounded-circle img-fluid box-img">
+              <p class=" text-style">
+                <strong>ToDoList</strong>
+              </p>
+            </a>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="sub-heading m-3">
+              <i class="fa fa-address-book fa-lg"></i> Friends List</h2>
+            <ul style="margin-left:-25px">
+              <span *ngIf="finalAllFriendsList.length!=0;else noFriend">
+                <li class="cursorPointer" *ngFor="let list of finalAllFriendsList">
+
+                  <user-details [firstName]="list.friendName" [lastName]="''" [designPart]="'friends'" [userStatus]="list.status"></user-details>
+
+                </li>
+              </span>
+              <ng-template #noFriend>
+                <h3 class="text-danger">No Friends</h3>
+              </ng-template>
+            </ul>
+
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Smaller screen design(smaller than medium) -->
+<div class="d-md-none">
+  <!-- navbar start -->
+
+  <nav class="navbar navbar-custom navbar-light fixed-top">
+
+    <div class="container-fluid">
+      <button type="button" data-toggle="collapse" data-target="#myLists">
+        <span class="navbar-toggler-icon bg-light"></span>
+      </button>
+
+      <a id="font-adjust" [routerLink]="['/']">EdList
+      </a>
+
+      <button type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon bg-light"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-light">Hi! {{receiverName}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" [routerLink]="['/EdLists']">
+              <i class="fa fa-home fa-lg" aria-hidden="true"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" [routerLink]="['/friends']">
+              <i class="fa fa-address-book fa-lg"></i> Friends</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" (click)="logout()">
+              <i class="fa fa-sign-out fa-lg"></i> Logout</a>
+          </li>
+
+        </ul>
+      </div>
+
+
+    </div>
+  </nav>
+  <br/>
+  <br/>
+  <!-- navbar end -->
+  <div class="collapse navbar-collapse myList-collapse" id="myLists">
+    <div class="row">
+      <div class="col-12 mt-2">
+        <a [routerLink]="['/EdList-manage','create']">
+          <img src="../../../assets/create.jpg" class="rounded-circle img-fluid box-img d-block mx-auto">
+
+        </a>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h2 class="sub-heading m-3">
+          <i class="fa fa-address-book fa-lg"></i> Friends List</h2>
+        <ul style="margin-left:-25px">
+          <span *ngIf="finalAllFriendsList.length!=0;else noFriend">
+            <li class="cursorPointer" *ngFor="let list of finalAllFriendsList">
+
+              <user-details [firstName]="list.friendName" [lastName]="''" [designPart]="'friends'" [userStatus]="list.status"></user-details>
+
+            </li>
+          </span>
+          <ng-template #noFriend>
+            <h3 class="text-danger">No Friends</h3>
+          </ng-template>
+        </ul>
+
+
+      </div>
+    </div>
+
+
+    <h2 class="sub-heading mx-3">
+      <i class="fa fa-list" aria-hidden="true"></i> TodoLists</h2>
+    <ul style="margin-left:-25px">
+      <span *ngIf="allToDoList.length>0;else noList">
+        <li class="cursorPointer" *ngFor="let list of allToDoList">
+
+          <user-details [firstName]="list.listName" [lastName]="''" [designPart]="'lists'" [creator]="list.creator"></user-details>
+
+        </li>
+      </span>
+      <ng-template #noList>
+        <h3 class="text-danger">No List</h3>
+      </ng-template>
+    </ul>
+    <h2 class="sub-heading m-3">
+      <i class="fa fa-users" aria-hidden="true"></i> All Users</h2>
+    <ul style="margin-left:-25px">
+      <span *ngIf="finalAllUsersList.length!=0;else noUser">
+        <li class="cursorPointer" *ngFor="let user of finalAllUsersList">
+
+          <span *ngIf="user.userId!=userInfo.userId">
+            <user-details (friendRequestSend)="sendFriendRequest($event)" [firstName]="user.firstName" [lastName]="user.lastName" [designPart]="'users'"
+              [sendRequestData]="user"></user-details>
+          </span>
+
+        </li>
+
+      </span>
+      <ng-template #noUser>
+        <h3 class="text-danger">No Users</h3>
+      </ng-template>
+    </ul>
+
+
+  </div>
+  <div class="col-12 color-box-2 xs-box mt-5"  *ngIf="selectedListId;else mainPage">
+      <textarea placeholder="WHAT NEEDS TO BE DONE ?" (keydown)="sendItemUsingKeypress($event)" [(ngModel)]="itemText"></textarea>
+      <span (click)="undoList(selectedListId)"><i class="fa fa-undo fa-lg cursorPointer"></i></span>
+      <div #scrollMe [scrollTop]="scrollToChatTop" class="item-history">
+          <ul class="list-unstyled">
+            <span *ngFor="let item of itemList">
+              <li>
+
+                <div class="message-data" [ngClass]="{'align-right': item.adderId == userInfo.userId}">
+                  <span class="message-data-time">{{item.modifiedOn | date: 'medium' }}</span> &nbsp; &nbsp;
+                  <span class="message-data-name floatLeft" *ngIf="item.adderId != userInfo.userId">
+                    <i class="fa fa-circle online"></i> {{ item.adder}}</span>
+                  <span class="message-data-name" *ngIf="item.adderId == userInfo.userId">{{ item.adder }}</span>
+                  <i class="fa fa-circle me" *ngIf="item.adderId == userInfo.userId"></i>
+
+                </div>
+                <div class="message clearfix" [ngClass]="{'other-message': item.adderId == userInfo.userId, 
+                  'my-message': item.adderId != userInfo.userId,'done-item':item.status==1}">
+                  {{item?.itemName}}
+                  <span class="set-text">
+                    <i [ngClass]="{'done-item':item.status==1,'cursorPointer':item.status==0}" class="fa fa-thumbs-o-up fa-lg" title="Completed"
+                      (click)="updateItem(item)"></i>
+                    <i [ngClass]="{'done-item':item.status==1,'cursorPointer':item.status==0}" class="fa fa-edit fa-lg" title="Edit" (click)="editItem(item)"></i>
+                    <i [ngClass]="{'done-item':item.status==1,'cursorPointer':item.status==0}" class="fa fa-trash-o fa-lg" title="Delete" (click)="deleteItem(item)"></i>
+                    <i [ngClass]="{'done-item':item.status==1,'cursorPointer':item.status==0}" class="fa fa-plus fa-lg" title="Add subitem" (click)="addSubItem(item.itemId)"></i>
+                  </span>
+                </div>
+              </li>
+              <span style="float:left;width:100%" *ngIf="subItemAddition==true && item.itemId==itemId">
+                <textarea placeholder="Add SubItem ?" (keydown)="sendItemUsingKeypress($event)" [(ngModel)]="subItemText"></textarea>
+              </span>
+              <span *ngIf="checkSubitem(item)">
+              <li *ngFor="let subItem of item.subItems">
+                <div class="message-subdata" [ngClass]="{'align-right': subItem.adderId == userInfo.userId}">
+                  <span class="message-data-time">{{subItem.modifiedOn | date: 'medium' }}</span> &nbsp; &nbsp;
+                  <span class="message-data-name floatLeft" *ngIf="subItem.adderId != userInfo.userId">
+                    <i class="fa fa-circle online"></i> {{ subItem.adder}}</span>
+                  <span class="message-data-name" *ngIf="subItem.adderId == userInfo.userId">{{ subItem.adder }}</span>
+                  <i class="fa fa-circle me" *ngIf="subItem.adderId == userInfo.userId"></i>
+
+
+                </div>
+                <span class="d-block set-subitem">
+                  <div class="sub-message  clearfix" [ngClass]="{'other-message-sub': subItem.adderId == userInfo.userId, 
+              'my-message-sub': subItem.adderId != userInfo.userId,'done-item':subItem.status==1}">
+                    {{subItem.subItemName}}
+                    <span class="set-text">
+                      <i [ngClass]="{'done-item':subItem.status==1,'cursorPointer':subItem.status==0}" class="fa fa-thumbs-o-up fa-lg" title="Completed"
+                        (click)="updateSubItem(subItem,item.itemId)"></i>&nbsp;
+                      <i [ngClass]="{'done-item':subItem.status==1,'cursorPointer':subItem.status==0}" 
+                      class="fa fa-edit fa-lg" title="Edit" (click)="editSubItem(subItem,item.itemId)"></i>&nbsp;
+                      <i [ngClass]="{'done-item':subItem.status==1,'cursorPointer':subItem.status==0}" class="fa fa-trash-o fa-lg" title="Delete" 
+                      (click)="deleteSubItem(subItem,item.itemId)"></i>
+
+                    </span>
+                  </div>
+                </span>
+              </li>
+              </span>
+            </span>
+            <li class="text-center" *ngIf="selectedListId">
+
+              <span class="cursorPointer" (click)="loadEarlierPageOfItem()">Load Previous Items</span>
+
+              <br>
+
+              <span *ngIf="loadingPreviousItem == true">Loading...</span>
+
+            </li>
+          </ul>
+        </div>
+
+ 
+  </div>
+
+
+</div>
