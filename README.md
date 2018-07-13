@@ -1,27 +1,68 @@
 # ToDoList
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+Design is made using bootstrap4 from scratch for both small screen and desktop.
 
-## Development server
+USER MANAGEMENT PART:
+1) In signup part, I gave client side validation part so that user not only get error after submitting the form but also in real time.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+2) It has countries list which i have given in ascending order for user ease.Once country is selected, country code automatically comes 
+for mobile number field.
 
-## Code scaffolding
+3) Field validation is done on client side as well as server side.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+4) Once user signup,mail has been sent to user for email confirmation.Before email confirmation, user cant login.
 
-## Build
+5) Go to mail for verifying yourself,once go to link which is provided in mail, user gets verified.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+6) Now user can login with his credentials.
 
-## Running unit tests
+7) User can also reset his/her password.On clicking on reset password, mail has been sent for resetting password process.Once go to link
+provided in mail, user go the page where he/she can set his new password.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+8) This way user can reset his password and can login with his/her new credentials.
 
-## Running end-to-end tests
+LIST MANAGEMENT PART:
+1) In this part, user will be able to create todolist.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+2) There is section where all friends list will be displayed. Other section called 'All Users' where all users who are not friend of user will be displayed.
 
-## Further help
+3) There is another section where all todolist  of friends including his own todolist will be listed.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+4) User and his friends can add item as well as subitem and this will notify all his friends.
+
+5) User and his friends can edit item and subitem by clicking on edit button and also can make item,subitem ->done(on done item,subitem becomes blur and disabled) by clicking on done button.
+
+6) User and his friends can also delete item,subitem by clicking on delete button.
+
+7) User and his friends can also undo the changes by clciking on button as well as using keyboard shortcut key(ctrl+z).
+
+8) There is another page called 'Friends' where user can see to whom he has sent requests or approve requests.
+
+9) In 'All users' section if user has sent a request and that person has not accepted the request then it will be listed in 'All users' section and if user again click to send friend request then it will notify user that he has already sent a request.
+
+10) Once,that user accepts request, now the person will come to 'friendslist' section.Friends who are online will also show online in this section.
+
+11) Api has also pagination,at one go,it loads four items.
+
+12) It has also 404 and 500 server error page.
+
+Live Link:
+http://edlist.webdeveloperjourney.xyz/login
+
+Events Documentation Link:
+http://edlist.webdeveloperjourney.xyz/eventsDocumentation/
+
+ApiDocumentation link:
+http://edlist.webdeveloperjourney.xyz/apiDocumentation/
+
+My credentials:
+
+Email:
+anchalnigamm@gmail.com
+
+Password:
+Anchal123
+
+
+
