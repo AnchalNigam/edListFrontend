@@ -1,6 +1,5 @@
 # ToDoList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 Design is made using bootstrap4 from scratch for both small screen and desktop.
 
 USER MANAGEMENT PART:
