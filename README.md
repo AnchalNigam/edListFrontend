@@ -46,22 +46,6 @@ LIST MANAGEMENT PART:
 
 12) It has also 404 and 500 server error page.
 
-Live Link:
-http://edlist.webdeveloperjourney.xyz/login
-
-Events Documentation Link:
-http://edlist.webdeveloperjourney.xyz/eventsDocumentation/
-
-ApiDocumentation link:
-http://edlist.webdeveloperjourney.xyz/apiDocumentation/
-
-My credentials:
-
-Email:
-anchalnigamm@gmail.com
-
-Password:
-Anchal123
 
 Screenshots: 
 
