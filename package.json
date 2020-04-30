@@ -24,7 +24,7 @@
     "angular2-uuid": "^1.1.1",
     "bootstrap": "^4.1.1",
     "core-js": "^2.4.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "js-alert": "^1.0.4",
     "ng-alert": "^1.0.5-alpha",
     "ng2-cookies": "^1.0.12",
